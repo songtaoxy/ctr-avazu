@@ -1,12 +1,12 @@
 
 # set the path-to-files
-TRAIN_FILE = "/data/barnett007/ctr-data/train.csv"
-TEST_FILE = "/data/barnett007/ctr-data/test.csv"
+TRAIN_FILE = "/data/weixin-39454683/ctr-avazu/newtrain_sample.csv"
+TEST_FILE = "/data/weixin-39454683/ctr-avazu/newtest_sample.csv"
 
 SUB_DIR = "/output"
 
 
-NUM_SPLITS = 5
+NUM_SPLITS = 3
 RANDOM_SEED = 2017
 
 # types of columns of the dataset dataframe
@@ -24,5 +24,5 @@ NUMERIC_COLS = [
 ]
 
 IGNORE_COLS = [
-    "id", "target","site_id", "app_id", "hour", "C15", "C16"
+    "id", "click","site_id", "app_id", "hour", "C15", "C16"
 ]
