@@ -121,7 +121,7 @@ trainfile = os.path.join(datapath ,"train.csv")
 dfTrain = pd.read_csv(trainfile,dtype={"C15":str,"C16":str})
 dfTrain = create_feature(dfTrain)
 
-print("*********train_data_read_end***********" + datetime.datetime.now())
+print("*********train_data_read_end***********" + str(datetime.datetime.now()))
 
 y_train = dfTrain["click"].values
 X_train = dfTrain.drop(["click","id"],axis=1).values
@@ -131,14 +131,14 @@ folds = list(StratifiedKFold(n_splits=config.NUM_SPLITS, shuffle=True,
 del X_train
 del y_train
 
-print("*********folds_end***********" + datetime.datetime.now())
+print("*********folds_end***********" + str(datetime.datetime.now()))
 
 testfile = os.path.join(datapath ,"test.csv")
 dfTest = pd.read_csv(trainfile,dtype={"C15":str,"C16":str})
 
 dfTest = create_feature(dfTest)
 
-print("*********test_data_read_end***********" + datetime.datetime.now())
+print("*********test_data_read_end***********" + str(datetime.datetime.now()))
 
 
 # ------------------ DeepFM Model ------------------
@@ -162,9 +162,9 @@ dfm_params = {
     "eval_metric": gini_norm,
     "random_seed": config.RANDOM_SEED
 }
-print("*********BEGIN_RUN***********" + datetime.datetime.now())
+print("*********BEGIN_RUN***********" + str(datetime.datetime.now()))
 y_train_dfm, y_test_dfm = _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params)
-print("*********END_RUN***********" + datetime.datetime.now())
+print("*********END_RUN***********" + str(datetime.datetime.now()))
 
 # ------------------ FM Model ------------------
 #fm_params = dfm_params.copy()
