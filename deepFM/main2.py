@@ -119,8 +119,9 @@ def _plot_fig(train_results, valid_results, model_name):
 datapath = "/data/barnett007/ctr-data"
 trainfile = os.path.join(datapath ,"train.csv")
 dfTrain = pd.read_csv(trainfile,dtype={"C15":str,"C16":str})
+print("*********create_feature_begin***********" + str(datetime.datetime.now()))
 dfTrain = create_feature(dfTrain)
-
+print("*********create_feature_end***********" + str(datetime.datetime.now()))
 print("*********train_data_read_end***********" + str(datetime.datetime.now()))
 
 y_train = dfTrain["click"].values
