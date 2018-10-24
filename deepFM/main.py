@@ -11,6 +11,7 @@ from sklearn.model_selection import StratifiedKFold
 
 import config
 from metrics import gini_norm
+from sklearn.metrics import roc_auc_score
 from DataReader import FeatureDictionary, DataParser
 sys.path.append("..")
 from DeepFM import DeepFM
