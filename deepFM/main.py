@@ -44,7 +44,7 @@ def _load_data():
         data["app_site_id"] = data["app_id"] + "_" + data["site_id"]
         data["app_site_id_model"] = data["app_site_id"] + "_" + data["device_model"]
         #此处可以考虑将组合特征的源特征删掉，对比效果
-        data = data.drop(["id", "hour", "C15", "C16"], axis=1)
+        data = data.drop(["hour", "C15", "C16"], axis=1)
         return data
 
     dfTrain = preprocess(dfTrain)
