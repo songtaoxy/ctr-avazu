@@ -121,14 +121,21 @@ trainfile = os.path.join(datapath ,"train.csv")
 df = pd.read_csv(trainfile,dtype={"C15":str,"C16":str})
 
 df = df.sample(frac=1.0)  # 全部打乱
-cut_idx = int(round(0.5 * df.shape[0]))
+cut_idx = int(round(0.3 * df.shape[0]))
 df = df.iloc[:cut_idx] #取部分数据做原始数据集
 
 cut_idx = int(round(0.1 * df.shape[0]))
 df_test, df_train = df.iloc[:cut_idx], df.iloc[cut_idx:] #划分训练集和验证集
+df_test.to_csv("newtest_sample.csv",index=False)
+df_train.to_csv("newtrain_sample.csv",index=False)
+del df
+del df_test
+del df_train
+
+
 #del df
 print("*********train_data_split_end***********" + str(datetime.datetime.now()))
-
+df_train = pd.read_csv("newtrain_sample.csv",dtype={"C15":str,"C16":str})
 dfTrain = create_feature(df_train)
 print("*********create_feature_end***********" + str(datetime.datetime.now()))
 
@@ -144,7 +151,7 @@ del X_train
 del y_train
 
 print("*********folds_end***********" + str(datetime.datetime.now()))
-
+df_test = pd.read_csv("newtest_sample.csv",dtype={"C15":str,"C16":str})
 dfTest = create_feature(df_test)
 print("*********test_data_read_end***********" + str(datetime.datetime.now()))
 
