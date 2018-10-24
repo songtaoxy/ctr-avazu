@@ -35,14 +35,17 @@ def _load_data():
     dfTrain = pd.read_csv(config.TRAIN_FILE,dtype={"C15":str,"C16":str})
     dfTest = pd.read_csv(config.TEST_FILE,dtype={"C15":str,"C16":str})
 
-    def preprocess(df):
-        cols = [c for c in df.columns if c not in ["id", "click"]]
-        df["size"] = df["C15"].str.cat(df["C16"], sep="_")
+    def preprocess(data):
+        data["size"] = data["C15"].str.cat(data["C16"], sep="_")
         # 将hour列拆分为
-        df["hour1"] = df["hour"].map(lambda x: str(x)[6:8])
-        df["day"] = df["hour"].map(lambda x: str(x)[4:6])
-        df["weekday"] = df["hour"].map(lambda x: getweekday(x))
-        return df
+        data["hour1"] = data["hour"].map(lambda x: str(x)[6:8])
+        data["day"] = data["hour"].map(lambda x: str(x)[4:6])
+        data["weekday"] = data["hour"].map(lambda x: getweekday(x))
+        data["app_site_id"] = data["app_id"] + "_" + data["site_id"]
+        data["app_site_id_model"] = data["app_site_id"] + "_" + data["device_model"]
+        #此处可以考虑将组合特征的源特征删掉，对比效果
+        data = data.drop(["id", "hour", "C15", "C16"], axis=1)
+        return data
 
     dfTrain = preprocess(dfTrain)
     dfTest = preprocess(dfTest)
@@ -86,7 +89,8 @@ def _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params):
         y_train_meta[valid_idx,0] = dfm.predict(Xi_valid_, Xv_valid_)
         y_test_meta[:,0] += dfm.predict(Xi_test, Xv_test)
 
-        gini_results_cv[i] = gini_norm(y_valid_, y_train_meta[valid_idx])
+        #gini_results_cv[i] = gini_norm(y_valid_, y_train_meta[valid_idx])
+        gini_results_cv[i] =  tf.losses.log_loss(y_valid_, y_train_meta[valid_idx])
         gini_results_epoch_train[i] = dfm.train_result
         gini_results_epoch_valid[i] = dfm.valid_result
 
@@ -157,21 +161,21 @@ dfm_params = {
     "batch_norm_decay": 0.995,
     "l2_reg": 0.01,
     "verbose": True,
-    "eval_metric": gini_norm,
+    "eval_metric": roc_auc_score,
     "random_seed": config.RANDOM_SEED
 }
 y_train_dfm, y_test_dfm = _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params)
 
 # ------------------ FM Model ------------------
-fm_params = dfm_params.copy()
-fm_params["use_deep"] = False
-y_train_fm, y_test_fm = _run_base_model_dfm(dfTrain, dfTest, folds, fm_params)
+#fm_params = dfm_params.copy()
+#fm_params["use_deep"] = False
+#y_train_fm, y_test_fm = _run_base_model_dfm(dfTrain, dfTest, folds, fm_params)
 
 
 # ------------------ DNN Model ------------------
-dnn_params = dfm_params.copy()
-dnn_params["use_fm"] = False
-y_train_dnn, y_test_dnn = _run_base_model_dfm(dfTrain, dfTest, folds, dnn_params)
+#dnn_params = dfm_params.copy()
+#dnn_params["use_fm"] = False
+#y_train_dnn, y_test_dnn = _run_base_model_dfm(dfTrain, dfTest, folds, dnn_params)
 
 
 
