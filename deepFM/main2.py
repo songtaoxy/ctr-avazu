@@ -118,26 +118,31 @@ def _plot_fig(train_results, valid_results, model_name):
 # load data
 datapath = "/data/barnett007/ctr-data"
 trainfile = os.path.join(datapath ,"train.csv")
-dfTrain = pd.read_csv(trainfile,dtype={"C15":str,"C16":str})
-print("*********create_feature_begin***********" + str(datetime.datetime.now()))
-dfTrain = create_feature(dfTrain)
+df = pd.read_csv(trainfile,dtype={"C15":str,"C16":str})
+
+df = df.sample(frac=1.0)  # 全部打乱
+cut_idx = int(round(0.1 * df.shape[0]))
+df_test, df_train = df.iloc[:cut_idx], df.iloc[cut_idx:]
+del df
+print("*********train_data_split_end***********" + str(datetime.datetime.now()))
+
+dfTrain = create_feature(df_train)
 print("*********create_feature_end***********" + str(datetime.datetime.now()))
-print("*********train_data_read_end***********" + str(datetime.datetime.now()))
+
 
 y_train = dfTrain["click"].values
 X_train = dfTrain.drop(["click","id"],axis=1).values
+
 # folds
 folds = list(StratifiedKFold(n_splits=config.NUM_SPLITS, shuffle=True,
                              random_state=config.RANDOM_SEED).split(X_train, y_train))
+print("*********fold_end***********" + str(datetime.datetime.now()))
 del X_train
 del y_train
 
 print("*********folds_end***********" + str(datetime.datetime.now()))
 
-testfile = os.path.join(datapath ,"test.csv")
-dfTest = pd.read_csv(trainfile,dtype={"C15":str,"C16":str})
-
-dfTest = create_feature(dfTest)
+dfTest = create_feature(df_test)
 
 print("*********test_data_read_end***********" + str(datetime.datetime.now()))
 
