@@ -121,7 +121,7 @@ trainfile = os.path.join(datapath ,"train.csv")
 df = pd.read_csv(trainfile,dtype={"C15":str,"C16":str})
 
 df = df.sample(frac=1.0)  # 全部打乱
-cut_idx = int(round(0.1 * df.shape[0]))
+cut_idx = int(round(0.3 * df.shape[0]))
 df_test, df_train = df.iloc[:cut_idx], df.iloc[cut_idx:]
 del df
 print("*********train_data_split_end***********" + str(datetime.datetime.now()))
