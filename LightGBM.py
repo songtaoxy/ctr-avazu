@@ -35,7 +35,7 @@ gbm=None
 # 第二步，流式讀取數據(每次100萬)
 i=1
 file = "/data/barnett007/ctr-data/train.csv"
-for sub_data in pd.read_csv(file, chunksize=1000000):
+for sub_data in pd.read_csv(file, chunksize=1000000,dtype={"C15":str,"C16":str}):
     sub_data = create_feature(sub_data)
     x_cols = [c for c in sub_data.columns if c not in ["click"]]
     sub_data = sub_data.sample(frac=1.0)  # 全部打乱
