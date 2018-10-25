@@ -1,7 +1,7 @@
 
 # set the path-to-files
-TRAIN_FILE = "/data/weixin-39454683/ctr-avazu/newtrain_sample.csv"
-TEST_FILE = "/data/weixin-39454683/ctr-avazu/newtest_sample.csv"
+TRAIN_FILE = "/data/sujianyu/ctrsample/train_sample.csv"
+TEST_FILE = "/data/sujianyu/ctrsample/train_sample2.csv"
 
 SUB_DIR = "/output"
 
