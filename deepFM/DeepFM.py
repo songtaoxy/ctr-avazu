@@ -10,6 +10,7 @@ import numpy as np
 import tensorflow as tf
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.metrics import roc_auc_score
+from sklearn.metrics import log_loss
 from time import time
 from tensorflow.contrib.layers.python.layers import batch_norm as batch_norm
 from yellowfin import YFOptimizer
@@ -381,5 +382,6 @@ class DeepFM(BaseEstimator, TransformerMixin):
         :return: metric of the evaluation
         """
         y_pred = self.predict(Xi, Xv)
-        return self.eval_metric(y, y_pred)
+        #return self.eval_metric(y, y_pred)
+        return log_loss(y, y_pred)
 
