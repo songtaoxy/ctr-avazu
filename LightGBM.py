@@ -50,6 +50,9 @@ trainfile = os.path.join(datapath ,"train_sample.csv")
 
 df_reader = pd.read_csv(trainfile,chunksize=300000,dtype={"C15":str,"C16":str})
 gbm = None
+columns = ['C1', 'banner_pos', 'site_id', 'site_domain', 'site_category', 'app_id', 'app_domain', \
+           'app_category', 'device_id', 'device_ip', 'device_model', 'device_type', 'device_conn_type', \
+           'C14', 'C17', 'C18', 'C19', 'C20', 'C21', 'size', 'hour1', 'day', 'weekday', 'app_site_id', 'app_site_id_model']
 params = {
         'task': 'train',
         'application': 'regression',
@@ -60,7 +63,8 @@ params = {
         'min_data_in_leaf': 100,
         'metric': ['l1','l2','binary_logloss'],  # l1:mae, l2:mse
         'max_bin': 255,
-        'num_trees': 300
+        'num_trees': 300,
+        'categorical_feature':columns
     }
 i=1
 for df_train in df_reader:
