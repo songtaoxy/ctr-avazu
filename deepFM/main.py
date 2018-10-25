@@ -7,6 +7,7 @@ import pandas as pd
 import tensorflow as tf
 from matplotlib import pyplot as plt
 from sklearn.metrics import make_scorer
+from sklearn.metrics import log_loss
 from sklearn.model_selection import StratifiedKFold
 
 import config
@@ -91,7 +92,7 @@ def _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params):
         y_test_meta[:,0] += dfm.predict(Xi_test, Xv_test)
 
         #gini_results_cv[i] = gini_norm(y_valid_, y_train_meta[valid_idx])
-        gini_results_cv[i] =  tf.losses.log_loss(y_valid_, y_train_meta[valid_idx])
+        gini_results_cv[i] =  log_loss(y_valid_, y_train_meta[valid_idx])
         gini_results_epoch_train[i] = dfm.train_result
         gini_results_epoch_valid[i] = dfm.valid_result
 
