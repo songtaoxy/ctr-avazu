@@ -39,7 +39,7 @@ for sub_data in pd.read_csv(file, chunksize=1000000,dtype={"C15":str,"C16":str})
     sub_data = create_feature(sub_data)
     x_cols = [c for c in sub_data.columns if c not in ["click"]]
     sub_data = sub_data.sample(frac=1.0)  # 全部打乱
-    cut_idx = int(round(0.1 * df.shape[0]))
+    cut_idx = int(round(0.1 * sub_data.shape[0]))
     df_test, df_train = df.iloc[:cut_idx], df.iloc[cut_idx:]
 
     # 區分特徵x和結果Y
