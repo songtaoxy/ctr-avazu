@@ -6,7 +6,7 @@ TEST_FILE = "/data/sujianyu/ctrsample/train_sample2.csv"
 SUB_DIR = "/output"
 
 
-NUM_SPLITS = 1
+NUM_SPLITS = 3
 RANDOM_SEED = 2017
 
 # types of columns of the dataset dataframe
