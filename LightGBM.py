@@ -16,8 +16,6 @@ from sklearn.metrics import log_loss
 from xgboost import plot_importance
 from matplotlib import pyplot as plt
 from sklearn.preprocessing import scale
-import joblib
-import gc
 # 计算分类正确率
 from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
