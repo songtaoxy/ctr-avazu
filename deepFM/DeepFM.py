@@ -382,6 +382,6 @@ class DeepFM(BaseEstimator, TransformerMixin):
         :return: metric of the evaluation
         """
         y_pred = self.predict(Xi, Xv)
-        #return self.eval_metric(y, y_pred)
-        return log_loss(y, y_pred)
+        return self.eval_metric(y, y_pred)
+        #return log_loss(y, y_pred)
 
