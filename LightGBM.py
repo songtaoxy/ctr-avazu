@@ -54,13 +54,14 @@ params = {
         'task': 'train',
         'application': 'binary',
         'boosting_type': 'gbdt',
-        'learning_rate': 0.01,
-        'num_leaves': 31,
+        'learning_rate': 0.005,
+        'num_leaves': 64,
         'tree_learner': 'serial',
-        'min_data_in_leaf': 100,
+        'min_data_in_leaf': 200,
         'metric': ['l1','l2','binary_logloss'],  # l1:mae, l2:mse
         'max_bin': 255,
-        'num_trees': 300
+        'num_trees': 300,
+        'is_unbalance' : true
     }
 
 i=1
