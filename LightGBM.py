@@ -60,18 +60,18 @@ for df_train in df_reader:
     columns = df_train.columns.tolist()
     print(columns)
     
-    le = preprocessing.LabelEncoder()
-    for columnname in columns:
-        df_train[columnname]= le.fit_transform(df_train[columnname])
+    #le = preprocessing.LabelEncoder()
+    #for columnname in columns:
+        #df_train[columnname]= le.fit_transform(df_train[columnname])
     
     
-    columns = df_train.columns.tolist()
-    print(columns)
+    #columns = df_train.columns.tolist()
+    #print(columns)
     params = {
         'task': 'train',
-        'application': 'regression',
+        'application': 'binary',
         'boosting_type': 'gbdt',
-        'learning_rate': 0.2,
+        'learning_rate': 0.01,
         'num_leaves': 31,
         'tree_learner': 'serial',
         'min_data_in_leaf': 100,
