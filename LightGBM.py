@@ -55,9 +55,9 @@ params = {
         'application': 'binary',
         'boosting_type': 'gbdt',
         'learning_rate': 0.005,
-        'num_leaves': 64,
+        'num_leaves': 31,
         'tree_learner': 'serial',
-        'min_data_in_leaf': 200,
+        'min_data_in_leaf': 100,
         'metric': ['l1','l2','binary_logloss'],  # l1:mae, l2:mse
         'max_bin': 255,
         'num_trees': 300,
