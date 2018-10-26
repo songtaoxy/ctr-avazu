@@ -60,13 +60,13 @@ for df_train in df_reader:
     columns = df_train.columns.tolist()
     print(columns)
     
-    #le = preprocessing.LabelEncoder()
-    #for columnname in columns:
-        #df_train[columnname]= le.fit_transform(df_train[columnname])
+    le = preprocessing.LabelEncoder()
+    for columnname in columns:
+        df_train[columnname]= le.fit_transform(df_train[columnname])
     
     
-    #columns = df_train.columns.tolist()
-    #print(columns)
+    columns = df_train.columns.tolist()
+    print(columns)
     params = {
         'task': 'train',
         'application': 'binary',
