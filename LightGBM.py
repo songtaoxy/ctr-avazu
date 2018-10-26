@@ -61,7 +61,7 @@ params = {
         'metric': ['l1','l2','binary_logloss'],  # l1:mae, l2:mse
         'max_bin': 255,
         'num_trees': 300,
-        'is_unbalance' : true
+        'is_unbalance' : True
     }
 
 i=1
