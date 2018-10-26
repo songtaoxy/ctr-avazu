@@ -60,7 +60,8 @@ params = {
         'min_data_in_leaf': 100,
         'metric': ['l1','l2','binary_logloss'],  # l1:mae, l2:mse
         'max_bin': 255,
-        'num_trees': 300
+        'num_trees': 300,
+        "device" : "gpu"
         #'is_unbalance' : True
     }
 
