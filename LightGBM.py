@@ -44,18 +44,18 @@ def create_feature(data):
     data = data.drop(["id", "hour", "C15", "C16"], axis=1)
     return data
 
-datapath = "/data/sujianyu/ctrsample"
+datapath = "/data/barnett007/ctr-data"
 output = "output"
-trainfile = os.path.join(datapath ,"train_sample.csv")
+trainfile = os.path.join(datapath ,"train.csv")
 
-df_reader = pd.read_csv(trainfile,chunksize=300000,dtype={"C15":str,"C16":str})
+df_reader = pd.read_csv(trainfile,chunksize=10000000,dtype={"C15":str,"C16":str})
 gbm = None
 params = {
         'task': 'train',
         'application': 'binary',
         'boosting_type': 'gbdt',
         'learning_rate': 0.005,
-        'num_leaves': 50,
+        'num_leaves': 31,
         'tree_learner': 'serial',
         'min_data_in_leaf': 100,
         'metric': ['l1','l2','binary_logloss'],  # l1:mae, l2:mse
