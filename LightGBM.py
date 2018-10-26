@@ -50,24 +50,7 @@ trainfile = os.path.join(datapath ,"train_sample.csv")
 
 df_reader = pd.read_csv(trainfile,chunksize=300000,dtype={"C15":str,"C16":str})
 gbm = None
-
-
-i=1
-for df_train in df_reader:
-    df_train = create_feature(df_train)
-    y_all = df_train["click"]
-    df_train = df_train.drop(["click"],axis=1)
-    columns = df_train.columns.tolist()
-    print(columns)
-    
-    le = preprocessing.LabelEncoder()
-    for columnname in columns:
-        df_train[columnname]= le.fit_transform(df_train[columnname])
-    
-    
-    columns = df_train.columns.tolist()
-    print(columns)
-    params = {
+params = {
         'task': 'train',
         'application': 'binary',
         'boosting_type': 'gbdt',
@@ -79,6 +62,18 @@ for df_train in df_reader:
         'max_bin': 255,
         'num_trees': 300
     }
+
+i=1
+for df_train in df_reader:
+    df_train = create_feature(df_train)
+    y_all = df_train["click"]
+    df_train = df_train.drop(["click"],axis=1)
+    columns = df_train.columns.tolist()
+    #print(columns)
+    
+    le = preprocessing.LabelEncoder()
+    for columnname in columns:
+        df_train[columnname]= le.fit_transform(df_train[columnname])  
 
     
     X_all = df_train.values
@@ -98,6 +93,6 @@ for df_train in df_reader:
                     keep_training_booster=True)  # 增量训练
     score_train = dict([(s[1],s[2]) for s in gbm.eval_train()])
     score_valid = dict([(s[1],s[2]) for s in gbm.eval_valid()])
-    print('mae=%.4f, mse=%.4f, binary_logloss=%.4f' % (score_train['l1'], score_train['l2'], score_train['binary_logloss']))
-    print('mae=%.4f, mse=%.4f, binary_logloss=%.4f' % (score_valid['l1'], score_valid['l2'], score_valid['binary_logloss']))
+    print('train : mae=%.4f, mse=%.4f, binary_logloss=%.4f' % (score_train['l1'], score_train['l2'], score_train['binary_logloss']))
+    print('valid : mae=%.4f, mse=%.4f, binary_logloss=%.4f' % (score_valid['l1'], score_valid['l2'], score_valid['binary_logloss']))
     i+=1
