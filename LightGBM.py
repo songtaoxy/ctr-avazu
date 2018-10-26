@@ -50,10 +50,24 @@ trainfile = os.path.join(datapath ,"train_sample.csv")
 
 df_reader = pd.read_csv(trainfile,chunksize=300000,dtype={"C15":str,"C16":str})
 gbm = None
-columns = ['C1', 'banner_pos', 'site_id', 'site_domain', 'site_category', 'app_id', 'app_domain', \
-           'app_category', 'device_id', 'device_ip', 'device_model', 'device_type', 'device_conn_type', \
-           'C14', 'C17', 'C18', 'C19', 'C20', 'C21', 'size', 'hour1', 'day', 'weekday', 'app_site_id', 'app_site_id_model']
-params = {
+
+
+i=1
+for df_train in df_reader:
+    df_train = create_feature(df_train)
+    y_all = df_train["click"]
+    df_train = df_train.drop(["click"],axis=1)
+    columns = df_train.columns.tolist()
+    print(columns)
+    
+    le = preprocessing.LabelEncoder()
+    for columnname in columns:
+        df_train[columnname]= le.fit_transform(df_train[columnname])
+    
+    
+    columns = df_train.columns.tolist()
+    print(columns)
+    params = {
         'task': 'train',
         'application': 'regression',
         'boosting_type': 'gbdt',
@@ -66,18 +80,10 @@ params = {
         'num_trees': 300,
         'categorical_feature':columns
     }
-i=1
-for df_train in df_reader:
-    df_train = create_feature(df_train)
-    y_all = df_train["click"]
-    df_train = df_train.drop(["click"],axis=1)
-    #lightgbm 模型可以对类别型特征
-    columns = df_train.columns.tolist()
-    print(columns)
+
+    
     X_all = df_train.values
-    #print(X_all.shape)
-    #print(y_all)
-    #划分数据集
+    
     print("split dataset")
     x_train, x_val, y_train, y_val = train_test_split(X_all, y_all, test_size = 0.2, random_state = 2018)
     lgb_train = lgb.Dataset(x_train,y_train)
@@ -95,4 +101,4 @@ for df_train in df_reader:
     score_valid = dict([(s[1],s[2]) for s in gbm.eval_valid()])
     print('mae=%.4f, mse=%.4f, binary_logloss=%.4f' % (score_train['l1'], score_train['l2'], score_train['binary_logloss']))
     print('mae=%.4f, mse=%.4f, binary_logloss=%.4f' % (score_valid['l1'], score_valid['l2'], score_valid['binary_logloss']))
-i+=1
+    i+=1
