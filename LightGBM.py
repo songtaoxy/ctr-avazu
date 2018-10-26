@@ -55,13 +55,13 @@ params = {
         'application': 'binary',
         'boosting_type': 'gbdt',
         'learning_rate': 0.005,
-        'num_leaves': 31,
+        'num_leaves': 50,
         'tree_learner': 'serial',
         'min_data_in_leaf': 100,
         'metric': ['l1','l2','binary_logloss'],  # l1:mae, l2:mse
         'max_bin': 255,
-        'num_trees': 300,
-        'is_unbalance' : True
+        'num_trees': 300
+        #'is_unbalance' : True
     }
 
 i=1
