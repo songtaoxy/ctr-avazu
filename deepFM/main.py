@@ -151,7 +151,7 @@ dfm_params = {
     "use_deep": True,
     "embedding_size": 8,
     "dropout_fm": [1.0, 1.0],
-    "deep_layers": [64,64],
+    "deep_layers": [64,64,64],
     "dropout_deep": [0.5, 0.5, 0.5],
     "deep_layers_activation": tf.nn.relu,
     "epoch": 30,
