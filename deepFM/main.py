@@ -85,7 +85,7 @@ def _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params):
         Xi_valid_, Xv_valid_, y_valid_ = _get(Xi_train, valid_idx), _get(Xv_train, valid_idx), _get(y_train, valid_idx)
 
         dfm = DeepFM(**dfm_params)
-        dfm.fit(Xi_train_, Xv_train_, y_train_, Xi_valid_, Xv_valid_, y_valid_)
+        dfm.fit(Xi_train_, Xv_train_, y_train_, Xi_valid_, Xv_valid_, y_valid_,early_stopping=True)
 
         y_train_meta[valid_idx,0] = dfm.predict(Xi_valid_, Xv_valid_)
         y_test_meta[:,0] += dfm.predict(Xi_test, Xv_test)
