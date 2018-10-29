@@ -151,7 +151,7 @@ dfm_params = {
     "use_deep": True,
     "embedding_size": 8,
     "dropout_fm": [1.0, 1.0],
-    "deep_layers": [64,64,64],
+    "deep_layers": [32,32],
     "dropout_deep": [0.5, 0.5, 0.5],
     "deep_layers_activation": tf.nn.relu,
     "epoch": 30,
@@ -165,7 +165,7 @@ dfm_params = {
     "eval_metric": roc_auc_score,
     "random_seed": config.RANDOM_SEED
 }
-y_train_dfm, y_test_dfm = _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params)
+#y_train_dfm, y_test_dfm = _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params)
 
 # ------------------ FM Model ------------------
 fm_params = dfm_params.copy()
