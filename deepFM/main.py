@@ -92,8 +92,8 @@ def _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params):
 
         #gini_results_cv[i] = gini_norm(y_valid_, y_train_meta[valid_idx])
         gini_results_cv[i] =  log_loss(y_valid_, y_train_meta[valid_idx])
-        gini_results_epoch_train[i] = dfm.train_result
-        gini_results_epoch_valid[i] = dfm.valid_result
+        #gini_results_epoch_train[i] = dfm.train_result
+        #gini_results_epoch_valid[i] = dfm.valid_result
 
     y_test_meta /= float(len(folds))
 
@@ -105,10 +105,10 @@ def _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params):
     elif dfm_params["use_deep"]:
         clf_str = "DNN"
     print("%s: %.5f (%.5f)"%(clf_str, gini_results_cv.mean(), gini_results_cv.std()))
-    filename = "%s_Mean%.5f_Std%.5f.csv"%(clf_str, gini_results_cv.mean(), gini_results_cv.std())
-    _make_submission(ids_test, y_test_meta, filename)
+    #filename = "%s_Mean%.5f_Std%.5f.csv"%(clf_str, gini_results_cv.mean(), gini_results_cv.std())
+    #_make_submission(ids_test, y_test_meta, filename)
 
-    _plot_fig(gini_results_epoch_train, gini_results_epoch_valid, clf_str)
+    #_plot_fig(gini_results_epoch_train, gini_results_epoch_valid, clf_str)
 
     return y_train_meta, y_test_meta
 
@@ -165,7 +165,8 @@ dfm_params = {
     "eval_metric": roc_auc_score,
     "random_seed": config.RANDOM_SEED
 }
-#y_train_dfm, y_test_dfm = _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params)
+print("*************DeepFM begin****************")
+y_train_dfm, y_test_dfm = _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params)
 
 # ------------------ FM Model ------------------
 print("*************FM begin****************")
