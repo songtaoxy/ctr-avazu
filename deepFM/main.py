@@ -160,7 +160,7 @@ dfm_params = {
     "optimizer_type": "adam",
     "batch_norm": 1,
     "batch_norm_decay": 0.999,
-    "l2_reg": 0.5,
+    "l2_reg": 1,
     "verbose": True,
     "eval_metric": roc_auc_score,
     "random_seed": config.RANDOM_SEED
