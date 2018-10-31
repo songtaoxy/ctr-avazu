@@ -160,19 +160,19 @@ dfm_params = {
     "optimizer_type": "adam",
     "batch_norm": 1,
     "batch_norm_decay": 0.999,
-    "l2_reg": 1.0,
+    "l2_reg": 1.5,
     "verbose": True,
     "eval_metric": roc_auc_score,
     "random_seed": config.RANDOM_SEED
 }
-print("*************DeepFM begin****************")
-y_train_dfm, y_test_dfm = _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params)
+#print("*************DeepFM begin****************")
+#y_train_dfm, y_test_dfm = _run_base_model_dfm(dfTrain, dfTest, folds, dfm_params)
 
 # ------------------ FM Model ------------------
-print("*************FM begin****************")
-fm_params = dfm_params.copy()
-fm_params["use_deep"] = False
-y_train_fm, y_test_fm = _run_base_model_dfm(dfTrain, dfTest, folds, fm_params)
+#print("*************FM begin****************")
+#fm_params = dfm_params.copy()
+#fm_params["use_deep"] = False
+#y_train_fm, y_test_fm = _run_base_model_dfm(dfTrain, dfTest, folds, fm_params)
 
 
 # ------------------ DNN Model ------------------
