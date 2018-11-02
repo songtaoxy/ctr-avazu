@@ -180,6 +180,6 @@ print("*************DNN begin****************")
 dnn_params = dfm_params.copy()
 dnn_params["use_fm"] = False
 y_train_dnn, y_test_dnn = _run_base_model_dfm(dfTrain, dfTest, folds, dnn_params)
-
+print("*************DNN end!****************")
 
 
